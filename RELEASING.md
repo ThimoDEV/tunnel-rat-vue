@@ -53,4 +53,16 @@ This command has external effects:
 
 If publication succeeds but the push fails, fix the Git connection and retry the push. Do not rerun the whole release script and bump the version again. If publication fails after changelogen has created a release commit/tag, resolve the npm problem and publish that prepared version before pushing.
 
+## Verify registry availability
+
+A successful upload can precede install availability. npm scans newly published packages, typically taking about five minutes and sometimes 15 minutes or longer. See [npm's publish-time scanning notice](https://github.blog/changelog/2026-07-28-npm-publish-time-malware-scanning-and-dual-use-metadata/).
+
+Check the exact version before announcing it:
+
+```sh
+pnpm view tunnel-rat-vue@0.1.0 version
+```
+
+Then install that version in a separate project and verify its exports. Do not republish or bump the version just because it is not immediately installable. If npm shows a staging placeholder, use `pnpm stage list tunnel-rat-vue` to check whether approval is actually pending. An empty staging list does not require another approval.
+
 There is no automatic npm publication in CI. For future releases through GitHub Actions, configure [npm trusted publishing](https://docs.npmjs.com/trusted-publishers/) for the exact repository and workflow, then add a publishing workflow with `id-token: write`. npm's documented CLI requirements are npm 11.5.1+ and Node.js 22.14.0+. Use pnpm for dependencies and builds; follow npm's supported OIDC publishing setup for the publish step.
