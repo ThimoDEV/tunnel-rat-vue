@@ -1,5 +1,9 @@
 # tunnel-rat-vue
 
+[![npm version][npm-version-src]][npm-href]
+[![npm downloads][npm-downloads-src]][npm-href]
+[![License][license-src]][npm-href]
+
 Send Vue content into an `In` component and render it somewhere else with `Out`, even across separate renderers. Render HTML from inside a TresJS scene, or declare Three.js components alongside your page and render them inside a `TresCanvas`.
 
 A Vue implementation of the idea and `In` / `Out` API from [Poimandres' tunnel-rat](https://github.com/pmndrs/tunnel-rat). The usage guide and examples below adapt the original package's README for Vue and TresJS.
@@ -272,3 +276,10 @@ Thanks also to the contributors to [TresJS issue #312](https://github.com/Tresjs
 ## License
 
 [MIT](./LICENSE).
+
+<!-- Badges -->
+
+[npm-version-src]: https://img.shields.io/npm/v/tunnel-rat-vue/latest.svg?style=flat&colorA=020420&colorB=00DC82
+[npm-downloads-src]: https://img.shields.io/npm/dm/tunnel-rat-vue.svg?style=flat&colorA=020420&colorB=00DC82
+[license-src]: https://img.shields.io/npm/l/tunnel-rat-vue.svg?style=flat&colorA=020420&colorB=00DC82
+[npm-href]: https://www.npmjs.com/package/tunnel-rat-vue
