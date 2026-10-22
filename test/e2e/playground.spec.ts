@@ -1,0 +1,51 @@
+import { expect, test } from '@playwright/test'
+
+test('moves scene components and HTML across the real Tres renderer', async ({ page }) => {
+  const errors: string[] = []
+  page.on('pageerror', (error) => errors.push(error.message))
+  page.on('console', (message) => {
+    if (message.type() === 'error' || message.text().includes('[Vue warn]'))
+      errors.push(message.text())
+  })
+  await page.goto('/')
+  await expect(page.locator('canvas')).toHaveCount(1)
+  await expect(page.getByRole('status')).toContainText('2 meshes connected')
+  await expect(page.getByRole('list', { name: 'Connected meshes' })).toContainText('torus #f4b860')
+
+  await page.getByLabel('Torus color').fill('#ff3344')
+  await expect(page.getByRole('status')).toContainText('torus #ff3344')
+  await page.getByLabel('Include torus').uncheck()
+  await expect(page.getByRole('status')).toContainText('1 meshes connected')
+  await expect(page.getByRole('status')).not.toContainText('torus')
+  await page.getByLabel('Include torus').check()
+  await expect(page.getByRole('status')).toContainText('2 meshes connected')
+
+  await page.getByLabel('Connect output').uncheck()
+  await expect(page.getByRole('status')).toContainText('0 meshes connected')
+  await page.getByLabel('Connect output').check()
+  await expect(page.getByRole('status')).toContainText('2 meshes connected')
+  await page.getByLabel('Include cube').uncheck()
+  await expect(page.getByRole('status')).toContainText('1 meshes connected')
+  await page.getByLabel('Include cube').check()
+  await expect(page.getByRole('status')).toContainText('2 meshes connected')
+
+  await page.getByLabel('Mirror scene').check()
+  await expect(page.getByRole('status')).toContainText('4 meshes connected')
+  await page.getByLabel('Torus color').fill('#5566ff')
+  await expect(page.getByRole('listitem').filter({ hasText: 'torus #5566ff' })).toHaveCount(2)
+  await page.getByLabel('Connect output').uncheck()
+  await expect(page.getByRole('status')).toContainText('2 meshes connected')
+  await page.getByLabel('Include cube').uncheck()
+  await expect(page.getByRole('status')).toContainText('1 meshes connected')
+  await page.getByLabel('Include cube').check()
+  await page.getByLabel('Connect output').check()
+  await expect(page.getByRole('status')).toContainText('4 meshes connected')
+  await page.getByLabel('Mirror scene').uncheck()
+  await expect(page.getByRole('status')).toContainText('2 meshes connected')
+
+  await page.getByRole('button', { name: 'Pause rotation' }).click()
+  await expect(page.getByRole('button', { name: 'Resume rotation' })).toBeVisible()
+  await expect(page.locator('canvas')).toHaveCount(1)
+  await expect(page.locator('tresmesh, tresboxgeometry, trestorusgeometry')).toHaveCount(0)
+  expect(errors).toEqual([])
+})

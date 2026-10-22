@@ -1,0 +1,91 @@
+{
+  "name": "tunnel-rat-vue",
+  "version": "0.1.0",
+  "description": "Send Vue content between separate renderers with paired In and Out components.",
+  "keywords": [
+    "portal",
+    "three",
+    "tresjs",
+    "tunnel",
+    "vue"
+  ],
+  "homepage": "https://github.com/ThimoDEV/tunnel-rat-vue#readme",
+  "bugs": "https://github.com/ThimoDEV/tunnel-rat-vue/issues",
+  "license": "MIT",
+  "author": "ThimoDEV",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ThimoDEV/tunnel-rat-vue.git"
+  },
+  "files": [
+    "dist"
+  ],
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    },
+    "./package.json": "./package.json"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "unbuild",
+    "prepack": "pnpm build",
+    "dev": "vite playground --config playground/vite.config.ts",
+    "dev:prepare": "pnpm build",
+    "dev:build": "pnpm build && vite build playground --config playground/vite.config.ts",
+    "dev:preview": "vite preview playground --config playground/vite.config.ts",
+    "lint": "oxlint --deny-warnings .",
+    "lint:fix": "oxlint --fix .",
+    "format": "oxfmt --write .",
+    "format:check": "oxfmt --check .",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:types": "vue-tsc --noEmit",
+    "test:e2e": "playwright test",
+    "test:package": "pnpm build && node --test test/package.test.mjs && tsc --noEmit --strict --module NodeNext --target ES2022 test/fixtures/consumer.mts test/fixtures/consumer.cts",
+    "check": "pnpm lint && pnpm format:check && pnpm test:types && pnpm test && pnpm test:package && pnpm dev:build",
+    "release:check": "pnpm check && pnpm test:e2e && pnpm pack --dry-run",
+    "release": "pnpm release:check && changelogen --release && pnpm publish --access public && git push --follow-tags"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.64.1",
+    "@tresjs/core": "^5.9.3",
+    "@types/node": "^24.0.0",
+    "@types/three": "^0.186.0",
+    "@vitejs/plugin-vue": "^6.0.10",
+    "@vue/server-renderer": "^3.5.44",
+    "@vue/test-utils": "^2.5.1",
+    "changelogen": "^0.6.2",
+    "jsdom": "^26.1.0",
+    "oxfmt": "^0.74.0",
+    "oxlint": "^1.89.0",
+    "three": "^0.186.1",
+    "typescript": "~5.9.3",
+    "unbuild": "^3.6.1",
+    "vite": "^8.3.5",
+    "vitest": "^5.0.5",
+    "vue": "^3.5.44",
+    "vue-tsc": "^3.3.13"
+  },
+  "peerDependencies": {
+    "vue": "^3.5.0"
+  },
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "packageManager": "pnpm@11.25.0"
+}
