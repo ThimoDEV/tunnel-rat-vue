@@ -27,12 +27,16 @@ For the first release at exactly `0.1.0`, start with a clean checkout and a pass
 
 ```sh
 pnpm release:check
-pnpm exec changelogen --release -r 0.1.0
+pnpm exec changelogen --from 6178560 -r 0.1.0 --output CHANGELOG.md --noAuthors
+pnpm format
+git add CHANGELOG.md
+git commit -m "chore: release v0.1.0"
+git tag -a v0.1.0 -m "v0.1.0"
 pnpm publish --access public
 git push --follow-tags
 ```
 
-Review the generated changelog and version before the publish command. Replace the README's pre-publication installation note as part of preparing the release.
+The initial version is already `0.1.0`, so generate the changelog from the initial commit without asking Changelogen to bump it. Review the generated changelog before committing and publishing. Commit any release documentation updates before these steps.
 
 For subsequent releases with an automatic version bump:
 
