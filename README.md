@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://raw.githubusercontent.com/ThimoDEV/tunnel-rat-vue/master/assets/tunnel-rat-vue.png" alt="Tunnel Rat badge with a Vue logo on the rat's chest" width="420">
+</p>
+
 # tunnel-rat-vue
 
 [![npm version][npm-version-src]][npm-href]
@@ -272,6 +276,8 @@ See [RELEASING.md](./RELEASING.md) for the npm release procedure.
 The original [tunnel-rat](https://github.com/pmndrs/tunnel-rat) by [Poimandres](https://github.com/pmndrs) established the tunnel concept and `In` / `Out` API used here. This README follows its usage guide and adapts its two renderer examples to Vue and TresJS. The original package is [MIT licensed](https://github.com/pmndrs/tunnel-rat/blob/main/LICENSE), copyright (c) 2022 Poimandres.
 
 Thanks also to the contributors to [TresJS issue #312](https://github.com/Tresjs/tres/issues/312) and [Neosoulink's Vue prototype](https://stackblitz.com/edit/vitejs-vite-zqau7f?file=src%2Fcore%2Ftunnel.ts) for exploring this approach in Vue.
+
+The header image adapts the [original tunnel-rat artwork](https://user-images.githubusercontent.com/1061/185432665-ddfe409a-d399-4059-bd2f-bfefc2a97db1.png) from Poimandres' package by adding the Vue logo.
 
 ## License
 
