@@ -11,8 +11,6 @@ A Vue implementation of the idea and `In` / `Out` API from [Poimandres' tunnel-r
 
 ## Installation
 
-Prepared for an initial npm release. Until publication, use the playground or create a local tarball with `pnpm pack` and install it in another project. Once published:
-
 ```sh
 pnpm add tunnel-rat-vue vue
 ```
